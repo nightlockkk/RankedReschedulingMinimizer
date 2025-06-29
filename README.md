@@ -6,6 +6,7 @@ Additionally, the program considers rank. So while the number of reschedulings i
 rescheduling to do than users who are ranked lower, and so on. 
 Be aware of the order you upload the files in - calendars uploaded earlier will be considered higher ranking. 
 
+The logic revolves around constraint programming to achieve this.
 Currently in the program that I wish to change in the near future:
 - the program only outputs one solution. I intend to output a list of possible solutions.
 - the program is very sensitive to errors in the ics file.
