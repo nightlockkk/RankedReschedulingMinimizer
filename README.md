@@ -11,4 +11,8 @@ Currently in the program that I wish to change in the near future:
 - the program only outputs one solution. I intend to output a list of possible solutions.
 - the program is very sensitive to errors in the ics file.
 - the rank is calculated based on the order that the user inputs the files. I would rather there be an interactive UI where the user can select tags, etc to indicate so.
-  
+
+SETUP -> pip install the following
+- ics
+- ortools
+- Flask
