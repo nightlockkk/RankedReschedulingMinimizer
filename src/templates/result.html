@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reorganized Calendar Results</title>
+    </head>
+    <body>
+        <h1>Reorganized Calendars</h1>
+        <div>
+            {% if results %}
+                {% for meeting_name, scheduled_time, reschedules in results %}
+                    <div>
+                        <strong>Meeting Request:</strong> {{ meeting_name }}<br>
+                        <strong>Scheduled Time:</strong> {{ scheduled_time.strftime('%Y-%m-%d %H:%M') }}<br>
+                        <strong>Necessary Reschedules:</strong>
+                        {% if reschedules %}
+                            <ul>
+                                {% for user, new_time in reschedules %}
+                                    <li>
+                                        <strong>{{ user }}</strong>: {{ new_time.strftime('%Y-%m-%d %H:%M') }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <em>No reschedules needed.</em>
+                        {% endif %}
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>No results found</p>
+            {% endif %}
+            <a href="{{ url_for('index') }}">Go Back</a>
+        </div>
+    </body>
+</html>

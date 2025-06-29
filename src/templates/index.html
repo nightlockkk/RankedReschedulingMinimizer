@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to Work Around!</title>
+    </head>
+    <body>
+        <h1>Upload Your Calendar Files & Meeting Requests:</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type = "file" name = "Calendars" multiple required>
+            
+            <div id="meeting-requests"></div>
+            <button type = "button" onclick = "addMeetingRequest()">Add Meeting Request</button>
+            <br><br>
+            <input type = "submit" value = "Upload">
+        </form>
+        
+        <script>
+            function addMeetingRequest(){
+                const container = document.getElementById('meeting-requests');
+                const idx = container.children.length;
+                const div = document.createElement('div');
+
+                div.className = 'meeting-request';
+                div.innerHTML = `
+                    <label>Meeting Name: <input type="text" name = "meeting_name"></label>
+                    <label>Duration (minutes): <input type="number" name = "duration"></label>
+                    <button type = "button" onclick = "removeMeetingRequest(this)">Remove</button>
+                    <br>
+                `;
+                container.appendChild(div);
+            }
+            function removeMeetingRequest(btn){
+                btn.parentElement.remove();
+            }
+        </script>
+    </body>
+</html>
+
+        <script>
+            function addMeetingRequest(){
+                const container = document.getElementById('meeting-requests');
+                const div = document.createElement('div');
+                div.className = 'meeting-request';
+                div.innerHTML = `
+                    <label>Meeting Name: <input type="text" name="meeting_name[]"></label>
+                    <label>Duration (minutes): <input type="number" name="duration[]"></label>
+                    <label>Earliest allowed: <input type="datetime-local" name="earliest[]"></label>
+                    <label>Latest allowed: <input type="datetime-local" name="latest[]"></label>
+                    <button type="button" onclick="removeMeetingRequest(this)">Remove</button>
+                    <br>
+                `; <!-- user must enter in ISO format -->
+                container.appendChild(div);
+            }
+            function removeMeetingRequest(btn){
+                btn.parentElement.remove();
+            }
+        </script>
+    </body>
+</html>
