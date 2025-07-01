@@ -6,7 +6,6 @@ from typing import List, Tuple, Dict
 from models.calendarEvent import CalendarEvent
 from models.user import User
 
-#representing meetings desired to be scheduled by the client
 class MeetingRequest:
     def __init__(self, title, duration, earliest, latest, requiredUsers):
         self.title = title
@@ -37,7 +36,6 @@ def multi_meeting_schedule_cp(
         meetingRequests: List[MeetingRequest],
         timeGranularity: int = 15 #1 would be most accurate
 ) -> Dict[str, List[Tuple[datetime, datetime]]]:
-    #returning meeting title -> list of (scheduled start, scheduled end)
     allUsers = set()
     for req in meetingRequests:
         allUsers.update(req.requiredUsers)
@@ -53,8 +51,7 @@ def multi_meeting_schedule_cp(
     
     model = cp_model.CpModel()
     solver = cp_model.CpSolver()
-
-    #variables for each meeting request
+    
     meetingVars = {}
     meetingDurations = {}
     meetingUsers = {}
@@ -69,7 +66,6 @@ def multi_meeting_schedule_cp(
         meetingDurations[req.title] = int(req.duration.total_seconds() // 60)
         meetingUsers[req.title] = req.requiredUsers
 
-    #variables for the existing events that can be rescheduled
     #getting slots for posisble reschedules for each event
     eventVars = {}
     eventDurations = {}
@@ -85,7 +81,7 @@ def multi_meeting_schedule_cp(
         eventDurations[event.title] = int((event.end - event.start).total_seconds() // 60)
 
     #ensuring each user doesn't have any overlapping events from the rescheduled mess
-    users = {user_id: user for user in allUsers} #mapping of user id to user object
+    users = {user_id: user for user in allUsers} 
     for user_id, user in users.items():
         userItems = [] #contains tuples of (title, cp var - time slot, duration) for all its events and meetings its included in
         for event in user.events:
